@@ -4,11 +4,6 @@
     color="#95A5A6"
     flat
   >
-    <v-avatar
-      class="mr-3"
-      color="grey darken-1"
-      size="48"
-    />
     <div class="pl-3">
       <nuxt-link to="/">
         <h3 class="text">
@@ -17,14 +12,6 @@
       </nuxt-link>
     </div>
     <v-spacer />
-    <div v-if="$store.getters.isAuthenticated" class="pr-3">
-      <h3 class="text pr-5">
-        <v-icon color="white">
-          mdi-account
-        </v-icon>
-        <b>{{ user.displayName }}</b>
-      </h3>
-    </div>
     <v-responsive max-width="100">
       <v-btn
         v-if="$store.getters.isAuthenticated"
