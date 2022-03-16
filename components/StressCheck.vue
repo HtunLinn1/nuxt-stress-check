@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pt-15 text-center">
+  <v-container class="pt-5 text-center">
     <div class="pt-5">
       <p v-if="onboarding < 3" class="pt-5 text-h6">
         A.あなたの仕事についてうかがいます。最もあてはまるものに○を付けてください。
