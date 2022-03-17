@@ -1,12 +1,21 @@
 <template>
   <v-container class="pt-5 text-center">
-    <div class="pt-5">
-      <p v-if="onboarding < 3" class="pt-5 text-h6">
-        A.あなたの仕事についてうかがいます。最もあてはまるものに○を付けてください。
-      </p>
-      <p v-if="onboarding > 2" class="pt-5 text-h6">
-        B.最近1 か月間のあなたの状態についてうかがいます。最もあてはまるものに○を付けてください。
-      </p>
+    <div class="pt-3">
+      <div>
+        <p v-if="onboarding < 3" class=" text-h6">
+          A.あなたの仕事についてうかがいます。最もあてはまるものに○を付けてください。
+        </p>
+        <p v-if="onboarding > 2 && onboarding < 6" class=" text-h6">
+          B.最近1 か月間のあなたの状態についてうかがいます。最もあてはまるものに○を付けてください。
+        </p>
+        <p v-if="onboarding > 5 && onboarding < 9" class=" text-h6">
+          C.あなたの周りの方々についてうかがいます。最もあてはまるものに○を付けてください。<br>
+          次の人たちはどのくらい気軽に話ができますか?
+        </p>
+        <p v-if="onboarding > 8" class=" text-h6">
+          D.満足度について
+        </p>
+      </div>
       <div class="text-right">
         {{ onboarding + 1 }} / {{ questions.length }}
       </div>
@@ -90,6 +99,7 @@ export default {
         this.questions = querySnapshot.docs.map(doc =>
           ({ ...doc.data(), id: doc.id })
         )
+        // this.questions.push({ ansPoint: [], ansText: [], qus_content: '' })
       })
     },
     getRadioBtnValue (qusObj) {
