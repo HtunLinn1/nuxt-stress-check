@@ -82,7 +82,7 @@ export default {
           this.results = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
           this.results = this.results.sort((a, b) => a.created_at > b.created_at ? -1 : 1)
         })
-      }, 500)
+      }, 600)
     }
   }
 }
