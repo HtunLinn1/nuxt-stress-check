@@ -66,6 +66,9 @@ export default {
       return this.$store.state.user
     }
   },
+  updated () {
+    this.changeBtn()
+  },
   mounted () {
     this.onSnapShotQuestions()
     this.onAuthStateChanged()
