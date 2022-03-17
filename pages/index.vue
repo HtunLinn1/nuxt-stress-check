@@ -1,6 +1,14 @@
 <template>
   <v-container class="pt-15 text-center">
     <div class="pt-10">
+      <v-alert
+        v-if="successMsg"
+        border="top"
+        type="success"
+        dark
+      >
+        {{ successMsg }}
+      </v-alert>
       <v-row>
         <v-col>
           <h2 v-if="$store.getters.isAuthenticated">
@@ -51,13 +59,19 @@ export default {
   middleware: 'authenticated',
   data () {
     return {
-      results: ''
+      results: '',
+      successMsg: this.$route.params.success
     }
   },
   computed: {
     user () {
       return this.$store.state.user
     }
+  },
+  created () {
+    setTimeout(() => {
+      this.successMsg = false
+    }, 2000)
   },
   mounted () {
     this.onAuthStateChanged()
