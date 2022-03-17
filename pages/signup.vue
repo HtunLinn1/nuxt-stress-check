@@ -82,7 +82,7 @@ export default {
                 .then(() => {
                   const user = auth.currentUser
                   this.message = 'アカウントが作成されました : ' + (user.displayName || user.uid)
-                  this.$router.push('/login')
+                  this.$router.push('/')
                 })
             })
             .catch((err) => {

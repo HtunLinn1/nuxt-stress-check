@@ -56,10 +56,7 @@ export default {
   data () {
     return {
       questions: '',
-      radioButton: '',
-      length: 3,
       onboarding: 0,
-      radioBtnValue: '',
       selectedQus: [],
       saveBtn: false
     }
@@ -92,11 +89,10 @@ export default {
         )
       })
     },
-    getRadioBtnValue (value) {
-      this.radioBtnValue = value
+    getRadioBtnValue (qusObj) {
+      this.saveArray(qusObj)
     },
     next () {
-      this.saveArray()
       this.onboarding = this.onboarding + 1 === this.questions.length
         ? 0
         : this.onboarding + 1
@@ -114,7 +110,6 @@ export default {
         : this.saveBtn = false
     },
     save () {
-      this.saveArray()
       console.log(this.selectedQus)
       const sum = this.selectedQus.reduce((a, b) => a + b.ansValue, 0)
       // save result
@@ -128,10 +123,10 @@ export default {
         this.selectedQus = []
       })
     },
-    saveArray () {
+    saveArray (qusObj) {
       const question = {
-        qusId: this.questions[this.onboarding].id,
-        ansValue: this.radioBtnValue === '' ? 0 : this.radioBtnValue
+        qusId: qusObj.qusId,
+        ansValue: qusObj.radioBtnValue === '' ? 0 : qusObj.radioBtnValue
       }
       const sameQus = this.selectedQus.filter(qus => qus.qusId.includes(question.qusId))
       if (sameQus.length === 0) {

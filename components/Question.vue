@@ -2,15 +2,16 @@
   <div>
     <v-card
       color="transparent"
-      height="200"
+      height="250"
+      class="pt-5 pl-2 pr-2"
     >
       <v-row
-        class="fill-height pt-5"
+        class="fill-height"
         align="center"
         justify="center"
       >
         <v-card-text class="text-center text-h6">
-          {{ qus.qus_content }}
+          {{ qus.id }} . {{ qus.qus_content }}
         </v-card-text>
         <v-radio-group
           v-for="(ans, i) in qus.ansText"
@@ -38,11 +39,12 @@ export default {
   },
   data () {
     return {
-      radioBtnValue: ''
+      radioBtnValue: '',
+      qusId: this.qus.id
     }
   },
   updated () {
-    this.$emit('radioBtnValue', this.radioBtnValue)
+    this.$emit('radioBtnValue', { radioBtnValue: this.radioBtnValue, qusId: this.qusId })
   }
 }
 </script>
