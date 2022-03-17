@@ -32,7 +32,7 @@
             </v-banner>
 
             <v-list-item v-for="result in results" :key="result.id">
-              {{ result.result }} Point <v-spacer /> {{ result.created_at.toDate() | datetime }}
+              {{ result.result }} Points <v-spacer /> {{ result.created_at.toDate() | datetime }}
             </v-list-item>
           </v-card>
         </v-col>
@@ -82,7 +82,7 @@ export default {
           this.results = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
           this.results = this.results.sort((a, b) => a.created_at > b.created_at ? -1 : 1)
         })
-      }, 1000)
+      }, 500)
     }
   }
 }
