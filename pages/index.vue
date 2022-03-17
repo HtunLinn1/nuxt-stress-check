@@ -6,7 +6,7 @@
           <h2 v-if="$store.getters.isAuthenticated">
             {{ user.displayName }}さん<br>
           </h2>
-          ストレスチャック
+          ストレスチェック
         </v-col>
       </v-row>
       <v-row>
@@ -36,7 +36,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.user)
     this.onAuthStateChanged()
   },
   methods: {

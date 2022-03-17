@@ -15,31 +15,7 @@
           v-for="(qus, index) in questions"
           :key="`card-${index}`"
         >
-          <v-card
-            color="transparent"
-            height="200"
-          >
-            <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-            >
-              <v-card-text class="text-center text-h5">
-                {{ qus.qus_content }}
-              </v-card-text>
-              <v-radio-group
-                v-for="(ans, i) in qus.ansText"
-                :key="ans"
-                v-model="radioBtnValue"
-                row
-              >
-                <v-radio
-                  :label="ans"
-                  :value="i + 1"
-                />
-              </v-radio-group>
-            </v-row>
-          </v-card>
+          <Question :qus="qus" @radioBtnValue="getRadioBtnValue($event)" />
         </v-window-item>
       </v-window>
       <v-card-actions class="justify-space-between">
@@ -115,6 +91,9 @@ export default {
           ({ ...doc.data(), id: doc.id })
         )
       })
+    },
+    getRadioBtnValue (value) {
+      this.radioBtnValue = value
     },
     next () {
       this.saveArray()
