@@ -67,7 +67,9 @@ export default {
       questions: '',
       onboarding: 0,
       selectedQus: [],
-      saveBtn: false
+      saveBtn: false,
+      totalB: 0,
+      totalAC: 0
     }
   },
   computed: {
@@ -124,12 +126,21 @@ export default {
     },
     save () {
       console.log(this.selectedQus)
-      const sum = this.selectedQus.reduce((a, b) => a + b.ansValue, 0)
+      for (const qus in this.selectedQus) {
+        if (this.selectedQus[qus].qusId.startsWith('B')) {
+          this.totalB += Number(this.selectedQus[qus].ansValue)
+        } else if (this.selectedQus[qus].qusId.startsWith('A') || this.selectedQus[qus].qusId.startsWith('C')) {
+          this.totalAC += Number(this.selectedQus[qus].ansValue)
+        }
+      }
+      const sum = this.selectedQus.reduce((a, b) => a + Number(b.ansValue), 0)
       // save result
       addDoc(resultsCollectionRef, {
         user: this.user.displayName,
         email: this.user.email,
         result: sum,
+        totalB: this.totalB,
+        totalAC: this.totalAC,
         created_at: new Date()
       }).then(() => {
         this.$router.push({ name: 'index', params: { success: '完了しました' } })

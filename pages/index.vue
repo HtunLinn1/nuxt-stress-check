@@ -40,7 +40,7 @@
             </v-banner>
 
             <v-list-item v-for="result in results" :key="result.id">
-              {{ result.result }} Points <v-spacer /> {{ result.created_at.toDate() | datetime }}
+              {{ result.totalB >= 77 || (result.totalB >= 63 && result.totalAC >= 76) ? '高ストレス' : '異常なし' }} <v-spacer /> {{ result.created_at.toDate() | datetime }}
             </v-list-item>
           </v-card>
         </v-col>
