@@ -16,6 +16,7 @@ export const mutations = {
         state.answers.push(answer)
       } else {
         state.answers[index].ansValue = answer.ansValue
+        state.answers[index].checked = answer.checked
       }
     } else {
       state.answers = []

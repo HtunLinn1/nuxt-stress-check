@@ -1,7 +1,7 @@
 <template>
   <v-container class="pt-5 text-center">
     <div class="pt-3">
-      <div>
+      <div v-if="onboarding + 1 <= questions.length - 1">
         <p v-if="onboarding < 3" class=" text-h6">
           A.あなたの仕事についてうかがいます。最もあてはまるものに○を付けてください。
         </p>
@@ -16,7 +16,7 @@
           D.満足度について
         </p>
       </div>
-      <div v-if="onboarding + 1 === questions.length - 1" class="text-right">
+      <div v-if="onboarding + 1 <= questions.length - 1" class="text-right">
         {{ onboarding + 1 }} / {{ questions.length - 1 }}
       </div>
       <v-window v-model="onboarding" class="slide-window">
@@ -24,7 +24,8 @@
           v-for="(qus, index) in questions"
           :key="`card-${index}`"
         >
-          <Question :qus="qus" @radioBtnValue="getRadioBtnValue($event)" />
+          <Question v-if="onboarding + 1 <= questions.length - 1" :qus="qus" :onboarding="onboarding" @radioBtnValue="getRadioBtnValue($event)" />
+          <CompleteForm v-else />
         </v-window-item>
       </v-window>
       <v-card-actions class="justify-space-between">
@@ -77,6 +78,14 @@ export default {
       return this.$store.state.user
     }
   },
+  created () {
+    this.$nuxt.$on('SET_ONBOARDING', (data) => {
+      this.onboarding = data
+    })
+  },
+  beforeDestroy () {
+    this.$nuxt.$off('SET_ONBOARDING')
+  },
   updated () {
     this.changeBtn()
   },
@@ -125,6 +134,7 @@ export default {
         : this.saveBtn = false
     },
     save () {
+      this.selectedQus = this.$store.getters['answer/Answers']
       console.log(this.selectedQus)
       for (const qus in this.selectedQus) {
         if (this.selectedQus[qus].qusId.startsWith('B')) {

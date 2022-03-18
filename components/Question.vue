@@ -2,9 +2,12 @@
   <div>
     <v-card
       color="transparent"
-      height="250"
+      min-height="250"
       class="pt-5 pl-2 pr-2"
     >
+      <v-checkbox
+        v-model="checkbox"
+      />
       <v-row
         class="fill-height"
         align="center"
@@ -35,12 +38,16 @@ export default {
   props: {
     qus: {
       type: Object, default: null
+    },
+    onboarding: {
+      type: Number, default: null
     }
   },
   data () {
     return {
       radioBtnValue: '',
-      qusId: this.qus.id
+      qusId: this.qus.id,
+      checkbox: false
     }
   },
   updated () {
@@ -54,7 +61,9 @@ export default {
     setAnswer () {
       this.$store.dispatch('answer/setAnswer', {
         ansValue: this.radioBtnValue,
-        qusId: this.qusId
+        qusId: this.qusId,
+        onboarding: this.onboarding,
+        checked: this.checkbox
       })
     },
     getAnswer () {
@@ -62,6 +71,7 @@ export default {
       const index = answers.findIndex(ans => ans.qusId === this.qusId)
       if (index !== -1) {
         this.radioBtnValue = answers[index].ansValue
+        this.checkbox = answers[index].checked
       }
     }
   }
