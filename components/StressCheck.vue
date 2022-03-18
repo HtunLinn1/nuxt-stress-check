@@ -77,6 +77,9 @@ export default {
   computed: {
     user () {
       return this.$store.state.user
+    },
+    answers () {
+      return this.$store.getters['answer/Answers']
     }
   },
   created () {
@@ -115,18 +118,26 @@ export default {
       })
     },
     getRadioBtnValue (qusObj) {
-      this.saveArray(qusObj)
+      // this.saveArray(qusObj)
       this.qusObj = qusObj
     },
     next () {
-      if (this.qusObj !== '' && this.qusObj.radioBtnValue !== '') {
+      if (this.qusObj === '' || this.qusObj.radioBtnValue === '') {
+        if (this.answers.length !== this.questions.length - 1) {
+          alert('答えを選んでください')
+        } else {
+          this.onboarding = this.onboarding + 1 === this.questions.length
+            ? 0
+            : this.onboarding + 1
+          this.changeBtn()
+          this.qusObj = ''
+        }
+      } else {
         this.onboarding = this.onboarding + 1 === this.questions.length
           ? 0
           : this.onboarding + 1
         this.changeBtn()
         this.qusObj = ''
-      } else {
-        alert('答えを選んでください')
       }
     },
     prev () {
