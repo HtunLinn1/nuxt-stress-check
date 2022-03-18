@@ -124,6 +124,7 @@ export default {
           ? 0
           : this.onboarding + 1
         this.changeBtn()
+        this.qusObj = ''
       } else {
         alert('答えを選んでください')
       }
