@@ -51,9 +51,11 @@
 
 <script>
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, onSnapshot, query, where } from 'firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore'
 import { auth, db } from '../plugins/firebase'
 const resultsCollectionRef = collection(db, 'Results')
+const resultQuery = query(resultsCollectionRef, orderBy('created_at', 'desc'))
+
 export default {
   name: 'IndexPage',
   middleware: 'authenticated',
@@ -91,12 +93,11 @@ export default {
     },
     getResults () {
       setTimeout(() => {
-        const q = query(resultsCollectionRef, where('email', '==', this.user.email))
+        const q = query(resultQuery, where('email', '==', this.user.email))
         onSnapshot(q, (querySnapshot) => {
           this.results = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-          this.results = this.results.sort((a, b) => a.created_at > b.created_at ? -1 : 1)
         })
-      }, 600)
+      }, 1000)
     }
   }
 }
