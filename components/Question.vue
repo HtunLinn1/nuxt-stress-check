@@ -45,6 +45,25 @@ export default {
   },
   updated () {
     this.$emit('radioBtnValue', { radioBtnValue: this.radioBtnValue, qusId: this.qusId })
+    this.setAnswer()
+  },
+  mounted () {
+    this.getAnswer()
+  },
+  methods: {
+    setAnswer () {
+      this.$store.dispatch('answer/setAnswer', {
+        ansValue: this.radioBtnValue,
+        qusId: this.qusId
+      })
+    },
+    getAnswer () {
+      const answers = this.$store.getters['answer/Answers']
+      const index = answers.findIndex(ans => ans.qusId === this.qusId)
+      if (index !== -1) {
+        this.radioBtnValue = answers[index].ansValue
+      }
+    }
   }
 }
 </script>

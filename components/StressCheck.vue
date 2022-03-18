@@ -16,8 +16,8 @@
           D.満足度について
         </p>
       </div>
-      <div class="text-right">
-        {{ onboarding + 1 }} / {{ questions.length }}
+      <div v-if="onboarding + 1 === questions.length - 1" class="text-right">
+        {{ onboarding + 1 }} / {{ questions.length - 1 }}
       </div>
       <v-window v-model="onboarding" class="slide-window">
         <v-window-item
@@ -101,7 +101,7 @@ export default {
         this.questions = querySnapshot.docs.map(doc =>
           ({ ...doc.data(), id: doc.id })
         )
-        // this.questions.push({ ansPoint: [], ansText: [], qus_content: '' })
+        this.questions.push({ ansPoint: [], ansText: [], qus_content: '' })
       })
     },
     getRadioBtnValue (qusObj) {
@@ -145,6 +145,10 @@ export default {
       }).then(() => {
         this.$router.push({ name: 'index', params: { success: '完了しました' } })
         this.selectedQus = []
+        this.$store.dispatch('answer/setAnswer', {
+          ansValue: null,
+          qusId: null
+        })
       })
     },
     saveArray (qusObj) {
