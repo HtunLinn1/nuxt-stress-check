@@ -12,7 +12,7 @@
         </nuxt-link>
         <span v-for="ans in answers" :key="ans.qusId">
           <span v-if="qus.id === ans.qusId">
-            {{ ans.ansValue }} points <span v-if="ans.checked" class="star">*</span>
+            {{ ans.ansValue === ''? 0 : ans.ansValue }} points <span v-if="ans.checked" class="star">*</span>
           </span>
         </span>
       </div>
