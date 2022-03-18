@@ -70,7 +70,8 @@ export default {
       selectedQus: [],
       saveBtn: false,
       totalB: 0,
-      totalAC: 0
+      totalAC: 0,
+      qusObj: ''
     }
   },
   computed: {
@@ -115,12 +116,17 @@ export default {
     },
     getRadioBtnValue (qusObj) {
       this.saveArray(qusObj)
+      this.qusObj = qusObj
     },
     next () {
-      this.onboarding = this.onboarding + 1 === this.questions.length
-        ? 0
-        : this.onboarding + 1
-      this.changeBtn()
+      if (this.qusObj !== '' && this.qusObj.radioBtnValue !== '') {
+        this.onboarding = this.onboarding + 1 === this.questions.length
+          ? 0
+          : this.onboarding + 1
+        this.changeBtn()
+      } else {
+        alert('答えを選んでください')
+      }
     },
     prev () {
       this.onboarding = this.onboarding - 1 < 0
