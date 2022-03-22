@@ -28,7 +28,7 @@
         <v-col>
           <v-card
             class="overflow-y-auto mx-auto"
-            max-height="200"
+            max-height="300"
             max-width="400"
           >
             <v-banner
@@ -40,7 +40,7 @@
             </v-banner>
 
             <v-list-item v-for="result in results" :key="result.id">
-              {{ result.totalB >= 77 || (result.totalB >= 63 && result.totalAC >= 76) ? '高ストレス' : '異常なし' }} <v-spacer /> {{ result.created_at.toDate() | datetime }}
+              {{ Number(result.totalB) >= 77 || (Number(result.totalB) >= 63 && Number(result.totalAC) >= 76) ? '高ストレス' : '異常なし' }} <v-spacer /> {{ result.created_at.toDate() | datetime }}
             </v-list-item>
           </v-card>
         </v-col>

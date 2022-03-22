@@ -13,7 +13,7 @@
         align="center"
         justify="center"
       >
-        <v-card-text class="text-center font-weight-medium question">
+        <v-card-text class="text-center font-weight-medium body-1 question">
           {{ qus.id }} . {{ qus.qus_content }}
         </v-card-text>
         <v-radio-group

@@ -17,6 +17,11 @@
         </span>
       </div>
     </v-card>
+    <div class="pt-2">
+      totalAC: {{ totalA + totalC }}
+    </div>
+    <div> totalB: {{ totalB }}</div>
+    <div> totalD: {{ totalD }}</div>
     <p class="pt-3">
       合計 => {{ totalResult }}点
     </p>
@@ -33,7 +38,11 @@ export default {
     return {
       answers: '',
       questions: '',
-      totalResult: ''
+      totalResult: '',
+      totalB: '',
+      totalA: '',
+      totalC: '',
+      totalD: ''
     }
   },
   mounted () {
@@ -71,6 +80,15 @@ export default {
     },
     getAnswers () {
       this.answers = this.$store.getters['answer/Answers']
+      const AArray = this.answers.filter(ans => ans.qusId.startsWith('A'))
+      const CArray = this.answers.filter(ans => ans.qusId.startsWith('C'))
+      const BArray = this.answers.filter(ans => ans.qusId.startsWith('B'))
+      const DArray = this.answers.filter(ans => ans.qusId.startsWith('D'))
+      this.totalA = AArray.reduce((a, b) => a + Number(b.ansValue), 0)
+      this.totalC = CArray.reduce((a, b) => a + Number(b.ansValue), 0)
+      this.totalB = BArray.reduce((a, b) => a + Number(b.ansValue), 0)
+      this.totalD = DArray.reduce((a, b) => a + Number(b.ansValue), 0)
+
       this.totalResult = this.answers.reduce((a, b) => a + Number(b.ansValue), 0)
     },
     clickQusId (onboarding) {
