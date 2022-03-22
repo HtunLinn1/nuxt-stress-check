@@ -149,8 +149,10 @@ export default {
       this.qusObj = qusObj
     },
     next () {
+      const selectedQus = this.$store.getters['answer/Answers']
       if (this.qusObj === '' || this.qusObj.radioBtnValue === '') {
-        if (this.answers.length !== this.questions.length - 1) {
+        const index = selectedQus.findIndex(qus => qus.onboarding === this.onboarding)
+        if (index === -1) {
           alert('答えを選んでください')
         } else {
           this.onboarding = this.onboarding + 1 === this.questions.length
