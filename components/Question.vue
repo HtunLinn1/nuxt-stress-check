@@ -13,7 +13,7 @@
         align="center"
         justify="center"
       >
-        <v-card-text class="text-center">
+        <v-card-text class="text-center font-weight-medium question">
           {{ qus.id }} . {{ qus.qus_content }}
         </v-card-text>
         <v-radio-group
@@ -81,5 +81,8 @@ export default {
 <style>
   .fill-height {
     height: 50%;
+  }
+  .question {
+    min-height: 150px;
   }
 </style>

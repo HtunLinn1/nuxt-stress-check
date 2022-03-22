@@ -4,7 +4,7 @@
       <v-card
         v-if="onboarding + 1 <= questions.length - 1"
         class="mx-auto pt-2"
-        min-height="85px"
+        min-height="100px"
         outlined
         color="#DFF2F3"
       >
@@ -151,7 +151,7 @@ export default {
     next () {
       const selectedQus = this.$store.getters['answer/Answers']
       if (this.qusObj === '' || this.qusObj.radioBtnValue === '') {
-        const index = selectedQus.findIndex(qus => qus.onboarding === this.onboarding)
+        const index = selectedQus.findIndex(qus => qus.onboarding === this.onboarding && qus.ansValue !== '')
         if (index === -1) {
           alert('答えを選んでください')
         } else {
