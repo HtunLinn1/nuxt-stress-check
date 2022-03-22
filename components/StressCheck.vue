@@ -114,6 +114,27 @@ export default {
         this.questions = querySnapshot.docs.map(doc =>
           ({ ...doc.data(), id: doc.id })
         )
+        let AArray = []
+        let BArray = []
+        let CArray = []
+        let DArray = []
+        this.questions.forEach((qus) => {
+          if (qus.id.startsWith('A')) {
+            AArray.push(qus)
+          } else if (qus.id.startsWith('B')) {
+            BArray.push(qus)
+          } else if (qus.id.startsWith('C')) {
+            CArray.push(qus)
+          } else if (qus.id.startsWith('D')) {
+            DArray.push(qus)
+          }
+        })
+        AArray = AArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
+        BArray = BArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
+        CArray = CArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
+        DArray = DArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
+        this.questions = []
+        this.questions = AArray.concat(BArray, CArray, DArray)
         this.questions.push({ ansPoint: [], ansText: [], qus_content: '' })
       })
     },
