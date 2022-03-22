@@ -51,10 +51,13 @@
 
 <script>
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, doc, setDoc } from 'firebase/firestore'
 import { auth, db } from '../plugins/firebase'
+import categories from '@/pages/json/categories.json'
+import questions from '@/pages/json/questions.json'
 const resultsCollectionRef = collection(db, 'Results')
 const resultQuery = query(resultsCollectionRef, orderBy('created_at', 'desc'))
+const questionsCollectionRef = collection(db, 'Questions')
 
 export default {
   name: 'IndexPage',
@@ -62,7 +65,9 @@ export default {
   data () {
     return {
       results: '',
-      successMsg: this.$route.params.success
+      successMsg: this.$route.params.success,
+      jsonCategories: categories,
+      jsonQuestions: questions
     }
   },
   computed: {
@@ -76,10 +81,66 @@ export default {
     }, 2000)
   },
   mounted () {
+    this.checkFirebaseQus()
     this.onAuthStateChanged()
     this.getResults()
   },
   methods: {
+    checkFirebaseQus () {
+      onSnapshot(questionsCollectionRef, (querySnapshot) => {
+        const questions = querySnapshot.docs.map(doc =>
+          ({ ...doc.data(), id: doc.id })
+        )
+        if (questions.length === 0) {
+          this.setFirebaseDatas()
+        }
+      })
+    },
+    setFirebaseDatas () {
+      let aCount = 0
+      let bCount = 0
+      let cCount = 0
+      let dCount = 0
+      this.jsonQuestions.forEach((qus) => {
+        if (qus.id.startsWith('A')) {
+          aCount = aCount + 1
+          const questionsJsonCollectionRef = doc(db, 'Questions', 'A' + aCount)
+          this.addFirebaseCollection({
+            ansPoint: qus.answerPoint,
+            ansText: this.jsonCategories[0].answerText,
+            qus_content: qus.text
+          }, questionsJsonCollectionRef)
+        } else if (qus.id.startsWith('B')) {
+          bCount = bCount + 1
+          const questionsJsonCollectionRef = doc(db, 'Questions', 'B' + bCount)
+          this.addFirebaseCollection({
+            ansPoint: qus.answerPoint,
+            ansText: this.jsonCategories[1].answerText,
+            qus_content: qus.text
+          }, questionsJsonCollectionRef)
+        } else if (qus.id.startsWith('C')) {
+          cCount = cCount + 1
+          const questionsJsonCollectionRef = doc(db, 'Questions', 'C' + cCount)
+          this.addFirebaseCollection({
+            ansPoint: qus.answerPoint,
+            ansText: this.jsonCategories[2].answerText,
+            qus_content: qus.text
+          }, questionsJsonCollectionRef)
+        } else if (qus.id.startsWith('D')) {
+          dCount = dCount + 1
+          const questionsJsonCollectionRef = doc(db, 'Questions', 'D' + dCount)
+          this.addFirebaseCollection({
+            ansPoint: qus.answerPoint,
+            ansText: this.jsonCategories[3].answerText,
+            qus_content: qus.text
+          }, questionsJsonCollectionRef)
+        }
+      })
+    },
+    addFirebaseCollection (dataObj, questionsJsonCollectionRef) {
+      // save json datas
+      setDoc(questionsJsonCollectionRef, dataObj)
+    },
     onAuthStateChanged () {
       onAuthStateChanged(auth, (user) => {
         if (user) {
