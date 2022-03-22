@@ -18,10 +18,10 @@
       </div>
     </v-card>
     <div class="pt-2">
-      totalAC: {{ totalA + totalC }}
+      Total AC: {{ totalA + totalC }}点
     </div>
-    <div> totalB: {{ totalB }}</div>
-    <div> totalD: {{ totalD }}</div>
+    <div> Total B: {{ totalB }}点</div>
+    <div> Total D: {{ totalD }}点</div>
     <p class="pt-3">
       合計 => {{ totalResult }}点
     </p>
