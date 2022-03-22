@@ -6,15 +6,11 @@
       max-height="300"
       max-width="400"
     >
-      <div v-for="(qus, index) in questions" :key="qus.id">
+      <div v-for="(ans, index) in answers" :key="ans.qusId">
         <nuxt-link to="" @click.native="clickQusId(index)">
-          {{ qus.id }} .&nbsp;
+          {{ ans.qusId }} .&nbsp;
         </nuxt-link>
-        <span v-for="ans in answers" :key="ans.qusId">
-          <span v-if="qus.id === ans.qusId">
-            {{ ans.ansValue === ''? 0 : ans.ansValue }} 点 <span v-if="ans.checked" class="star">*</span>
-          </span>
-        </span>
+        {{ ans.ansValue === ''? 0 : ans.ansValue }} 点 <span v-if="ans.checked" class="star">*</span>
       </div>
     </v-card>
     <div class="pt-2">
@@ -29,9 +25,6 @@
 </template>
 
 <script>
-import { collection, onSnapshot } from 'firebase/firestore'
-import { db } from '../plugins/firebase'
-const questionsCollectionRef = collection(db, 'Questions')
 export default {
   name: 'CompleteFormPage',
   data () {
@@ -46,38 +39,10 @@ export default {
     }
   },
   mounted () {
-    this.onSnapShotQuestions()
+    // this.onSnapShotQuestions()
     this.getAnswers()
   },
   methods: {
-    onSnapShotQuestions () {
-      onSnapshot(questionsCollectionRef, (querySnapshot) => {
-        this.questions = querySnapshot.docs.map(doc =>
-          ({ ...doc.data(), id: doc.id })
-        )
-        let AArray = []
-        let BArray = []
-        let CArray = []
-        let DArray = []
-        this.questions.forEach((qus) => {
-          if (qus.id.startsWith('A')) {
-            AArray.push(qus)
-          } else if (qus.id.startsWith('B')) {
-            BArray.push(qus)
-          } else if (qus.id.startsWith('C')) {
-            CArray.push(qus)
-          } else if (qus.id.startsWith('D')) {
-            DArray.push(qus)
-          }
-        })
-        AArray = AArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
-        BArray = BArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
-        CArray = CArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
-        DArray = DArray.sort((a, b) => Number(a.id.split('').splice(1, 3).join('')) > Number(b.id.split('').splice(1, 3).join('')) ? 1 : -1)
-        this.questions = []
-        this.questions = AArray.concat(BArray, CArray, DArray)
-      })
-    },
     getAnswers () {
       this.answers = this.$store.getters['answer/Answers']
       const AArray = this.answers.filter(ans => ans.qusId.startsWith('A'))
