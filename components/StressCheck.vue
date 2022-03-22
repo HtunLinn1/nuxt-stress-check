@@ -54,7 +54,7 @@
           color="primary"
           @click="save"
         >
-          完了
+          送信
         </v-btn>
       </v-card-actions>
     </div>
