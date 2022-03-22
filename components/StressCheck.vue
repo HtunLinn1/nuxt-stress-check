@@ -2,17 +2,17 @@
   <v-container class="pt-5 text-center">
     <div class="pt-3">
       <div v-if="onboarding + 1 <= questions.length - 1">
-        <p v-if="onboarding < 3" class=" text-h6">
+        <p v-if="onboarding < 17" class=" text-h6">
           A.あなたの仕事についてうかがいます。最もあてはまるものに○を付けてください。
         </p>
-        <p v-if="onboarding > 2 && onboarding < 6" class=" text-h6">
+        <p v-if="onboarding > 16 && onboarding < 46" class=" text-h6">
           B.最近1 か月間のあなたの状態についてうかがいます。最もあてはまるものに○を付けてください。
         </p>
-        <p v-if="onboarding > 5 && onboarding < 9" class=" text-h6">
+        <p v-if="onboarding > 45 && onboarding < 55" class=" text-h6">
           C.あなたの周りの方々についてうかがいます。最もあてはまるものに○を付けてください。<br>
           次の人たちはどのくらい気軽に話ができますか?
         </p>
-        <p v-if="onboarding > 8" class=" text-h6">
+        <p v-if="onboarding > 54" class=" text-h6">
           D.満足度について
         </p>
       </div>
