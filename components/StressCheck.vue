@@ -189,31 +189,35 @@ export default {
     },
     save () {
       this.selectedQus = this.$store.getters['answer/Answers']
-      console.log(this.selectedQus)
-      for (const qus in this.selectedQus) {
-        if (this.selectedQus[qus].qusId.startsWith('B')) {
-          this.totalB += Number(this.selectedQus[qus].ansValue)
-        } else if (this.selectedQus[qus].qusId.startsWith('A') || this.selectedQus[qus].qusId.startsWith('C')) {
-          this.totalAC += Number(this.selectedQus[qus].ansValue)
+      const index = this.selectedQus.findIndex(qus => qus.ansValue === '')
+      if (this.questions.length - 1 !== this.selectedQus.length || index !== -1) {
+        alert('全ての問題を選んでください')
+      } else {
+        for (const qus in this.selectedQus) {
+          if (this.selectedQus[qus].qusId.startsWith('B')) {
+            this.totalB += Number(this.selectedQus[qus].ansValue)
+          } else if (this.selectedQus[qus].qusId.startsWith('A') || this.selectedQus[qus].qusId.startsWith('C')) {
+            this.totalAC += Number(this.selectedQus[qus].ansValue)
+          }
         }
-      }
-      const sum = this.selectedQus.reduce((a, b) => a + Number(b.ansValue), 0)
-      // save result
-      addDoc(resultsCollectionRef, {
-        user: this.user.displayName,
-        email: this.user.email,
-        result: sum,
-        totalB: this.totalB,
-        totalAC: this.totalAC,
-        created_at: new Date()
-      }).then(() => {
-        this.$router.push({ name: 'index', params: { success: '完了しました' } })
-        this.selectedQus = []
-        this.$store.dispatch('answer/setAnswer', {
-          ansValue: null,
-          qusId: null
+        const sum = this.selectedQus.reduce((a, b) => a + Number(b.ansValue), 0)
+        // save result
+        addDoc(resultsCollectionRef, {
+          user: this.user.displayName,
+          email: this.user.email,
+          result: sum,
+          totalB: this.totalB,
+          totalAC: this.totalAC,
+          created_at: new Date()
+        }).then(() => {
+          this.$router.push({ name: 'index', params: { success: '完了しました' } })
+          this.selectedQus = []
+          this.$store.dispatch('answer/setAnswer', {
+            ansValue: null,
+            qusId: null
+          })
         })
-      })
+      }
     },
     saveArray (qusObj) {
       const question = {
