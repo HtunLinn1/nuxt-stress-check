@@ -46,7 +46,14 @@
           btn
           @click="next"
         >
-          <v-icon>mdi-chevron-right</v-icon>
+          <span
+            v-if="onboarding + 1 === questions.length - 1"
+          >
+            完了
+          </span>
+          <span v-else>
+            <v-icon>mdi-chevron-right</v-icon>
+          </span>
         </v-btn>
         <v-btn
           v-if="saveBtn"
