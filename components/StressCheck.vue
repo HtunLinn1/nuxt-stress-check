@@ -1,10 +1,10 @@
 <template>
-  <v-container class="pt-5 text-center">
-    <div class="pt-3">
+  <v-container class="text-center">
+    <div>
       <v-card
         v-if="onboarding + 1 <= questions.length - 1"
         class="mx-auto pt-2"
-        min-height="100px"
+        min-height="110px"
         outlined
         color="#DFF2F3"
       >

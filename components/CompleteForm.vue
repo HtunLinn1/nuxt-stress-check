@@ -18,8 +18,8 @@
     </div>
     <div> Total B: {{ totalB }}点</div>
     <div> Total D: {{ totalD }}点</div>
-    <p class="pt-3">
-      合計 => {{ totalResult }}点
+    <p class="pt-1">
+      スターテス：{{ Number(totalB) >= 77 || (Number(totalB) >= 63 && Number(totalA + totalC) >= 76) ? '高ストレス' : '異常なし' }}
     </p>
   </v-container>
 </template>

@@ -2,8 +2,8 @@
   <div>
     <v-card
       color="transparent"
-      min-height="250"
-      class="pt-5 pl-2 pr-2"
+      min-height="100"
+      class="pt-1 pl-2 pr-2"
     >
       <v-checkbox
         v-model="checkbox"
@@ -17,15 +17,19 @@
           {{ qus.id }} . {{ qus.qus_content }}
         </v-card-text>
         <v-radio-group
-          v-for="(ans, i) in qus.ansText"
-          :key="ans"
           v-model="radioBtnValue"
-          row
         >
-          <v-radio
-            :label="ans"
-            :value="qus.ansPoint[i]"
-          />
+          <v-row
+            v-for="(ans, i) in qus.ansText"
+            :key="ans"
+          >
+            <v-col cols="12">
+              <v-radio
+                :label="ans"
+                :value="qus.ansPoint[i]"
+              />
+            </v-col>
+          </v-row>
         </v-radio-group>
       </v-row>
     </v-card>
@@ -83,6 +87,6 @@ export default {
     height: 50%;
   }
   .question {
-    min-height: 150px;
+    min-height: 140px;
   }
 </style>
