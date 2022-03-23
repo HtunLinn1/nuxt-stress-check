@@ -70,7 +70,7 @@
 
 <script>
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, onSnapshot, addDoc } from 'firebase/firestore'
+import { collection, addDoc, getDocs } from 'firebase/firestore'
 import { db, auth } from '../plugins/firebase'
 const questionsCollectionRef = collection(db, 'Questions')
 const resultsCollectionRef = collection(db, 'Results')
@@ -122,9 +122,9 @@ export default {
         }
       })
     },
-    onSnapShotQuestions () {
-      onSnapshot(questionsCollectionRef, (querySnapshot) => {
-        this.questions = querySnapshot.docs.map(doc =>
+    async onSnapShotQuestions () {
+      await getDocs(questionsCollectionRef).then((data) => {
+        this.questions = data.docs.map(doc =>
           ({ ...doc.data(), id: doc.id })
         )
         let AArray = []

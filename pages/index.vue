@@ -51,7 +51,7 @@
 
 <script>
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, onSnapshot, query, where, orderBy, doc, setDoc } from 'firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, doc, setDoc, getDocs } from 'firebase/firestore'
 import { auth, db } from '../plugins/firebase'
 import categories from '@/pages/json/categories.json'
 import questions from '@/pages/json/questions.json'
@@ -86,9 +86,9 @@ export default {
     this.getResults()
   },
   methods: {
-    checkFirebaseQus () {
-      onSnapshot(questionsCollectionRef, (querySnapshot) => {
-        const questions = querySnapshot.docs.map(doc =>
+    async checkFirebaseQus () {
+      await getDocs(questionsCollectionRef).then((data) => {
+        const questions = data.docs.map(doc =>
           ({ ...doc.data(), id: doc.id })
         )
         if (questions.length === 0) {

@@ -6,7 +6,7 @@
       color="#95A5A6"
     >
       <div class="footer">
-        Copyright Blog {{ new Date().getFullYear() }}. All right reserved
+        Copyright Check {{ new Date().getFullYear() }}. All right reserved
       </div>
     </v-footer>
   </div>
