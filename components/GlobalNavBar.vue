@@ -51,6 +51,10 @@ export default {
     logout () {
       signOut(auth).then(() => {
         this.$store.dispatch('setUser', null)
+        this.$store.dispatch('answer/setAnswer', {
+          ansValue: null,
+          qusId: null
+        })
       })
     },
     login () {

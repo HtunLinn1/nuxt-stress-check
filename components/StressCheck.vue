@@ -25,7 +25,7 @@
       <div v-if="onboarding + 1 <= questions.length - 1" class="text-right">
         {{ onboarding + 1 }} / {{ questions.length - 1 }}
       </div>
-      <v-window v-model="onboarding" class="slide-window">
+      <v-window v-model="onboarding" class="slide-window" :touch="{ left : next, right: prev }">
         <v-window-item
           v-for="(qus, index) in questions"
           :key="`card-${index}`"
@@ -175,6 +175,11 @@ export default {
         this.changeBtn()
         this.qusObj = ''
       }
+      // this.onboarding = this.onboarding + 1 === this.questions.length
+      //   ? 0
+      //   : this.onboarding + 1
+      // this.changeBtn()
+      // this.qusObj = ''
     },
     prev () {
       this.onboarding = this.onboarding - 1 < 0
