@@ -158,7 +158,7 @@ export default {
         onSnapshot(q, (querySnapshot) => {
           this.results = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
         })
-      }, 1000)
+      }, 1500)
     }
   }
 }
