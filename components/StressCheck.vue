@@ -189,9 +189,9 @@ export default {
     },
     save () {
       this.selectedQus = this.$store.getters['answer/Answers']
-      const index = this.selectedQus.findIndex(qus => qus.ansValue === '')
-      if (this.questions.length - 1 !== this.selectedQus.length || index !== -1) {
-        alert('全ての問題を選んでください')
+      const notselectedqus = this.selectedQus.filter(qus => qus.ansValue === '')
+      if (this.questions.length - 1 !== this.selectedQus.length || notselectedqus.length !== 0) {
+        alert(((this.questions.length - 1) - this.selectedQus.length + notselectedqus.length) + 'つの問題を選んでください')
       } else {
         for (const qus in this.selectedQus) {
           if (this.selectedQus[qus].qusId.startsWith('B')) {
